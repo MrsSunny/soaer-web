@@ -2,7 +2,7 @@
 <html lang="zh">
     <head>
         <meta charset="utf-8" />
-        <title>TOC - Editor.md examples</title>
+        <title>文档编写</title>
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/editormd.css" />
         <style>            
@@ -23,65 +23,48 @@
             <header>
                 <h1>文档编写</h1>
             </header>
+            <div class="btns">
+                <button id="preview-btn">预览</button>
+                <button id="get-html-btn">保存</button>
+            </div>
             <div id="test-editormd">                
                 <textarea style="display:none;"></textarea>
             </div>
+            <div class="btns">
+                <button id="preview-btn1">预览</button>
+                <button id="get-html-btn1">保存</button>
+            </div>
         </div>
-        
         <script src="js/jquery.min.js"></script>
         <script src="js/editormd.js"></script>   
+        <script src="js/zepto.min.js"></script>
         <script type="text/javascript">            
-            var testEditor;
-                
+            var mdEditor;
             $(function() {
-                testEditor = editormd("test-editormd", {
+                mdEditor = editormd("test-editormd", {
                     width         : "90%",
                     height        : 720,
                     path          : "lib/",
+                    saveHTMLToTextarea : true,
                     //toc           : false,         // diable ToC
-                    tocStartLevel : 2      // Parse beginning of H2, Default value 1
+                    tocStartLevel : 2,     // Parse beginning of H2, Default value 1
+                    taskList : true,
+                    tex : true,   
+                    flowChart : true,
+                    emoji : true,
                 });
-                
-                $("#insert-btn").click(function() {
-                    testEditor.config({
-                        tocContainer : "#custom-toc-container",
-                        tocDropdown   : false
-                    });
-                });
-                
-                $("#menu-btn").click(function(){
-                    testEditor.config({
-                        tocContainer  : "",
-                        tocDropdown   : true,
-                        tocTitle      : "目录 Table of Contents dsfsadfsfdsdf",
-                    });
-                });
-                
-                $("#menu2-btn").click(function(){
-                    testEditor.config({
-                        tocContainer  : "#custom-toc-container",
-                        tocDropdown   : true,
-                        tocTitle      : "目录 Table of Contents dsfsadfsfdsdf",
-                    });
-                });
-                
-                $("#default-btn").click(function() {
-                    $("#custom-toc-container").html("#custom-toc-container");
-                    testEditor.config({
-                        tocContainer : "",
-                        tocm : false,
-                        tocDropdown  : false
-                    });
-                });
-                
-                $("#tocm-btn").click(function() {
-                    $("#custom-toc-container").html("#custom-toc-container");
-                    testEditor.config({
-                        tocm : true,
-                        tocContainer : "",
-                        tocDropdown   : false
-                    });
-                });
+            });
+
+            $("#get-md-btn").bind('click', function(){
+                alert(mdEditor.getMarkdown());
+            });
+
+            $("#get-html-btn").bind('click', function() {
+                alert(mdEditor.getHTML());
+            });        
+
+            $("#preview-btn").bind('click', function() {
+                mdEditor.previewing();
             });
         </script>
     </body>
