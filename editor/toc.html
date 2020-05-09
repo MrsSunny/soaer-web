@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>TOC - Editor.md examples</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/editormd.css" />
+        <style>            
+            #custom-toc-container {
+                border: 1px solid #ddd;
+                width: 90%;
+                margin: 0 auto 15px;
+                overflow: visible;
+            }
+            
+            #custom-toc-container > .markdown-toc {
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="layout">
+            <header>
+                <h1>文档编写</h1>
+            </header>
+            <div id="test-editormd">                
+                <textarea style="display:none;"></textarea>
+            </div>
+        </div>
+        
+        <script src="js/jquery.min.js"></script>
+        <script src="js/editormd.js"></script>   
+        <script type="text/javascript">            
+            var testEditor;
+                
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width         : "90%",
+                    height        : 720,
+                    path          : "lib/",
+                    //toc           : false,         // diable ToC
+                    tocStartLevel : 2      // Parse beginning of H2, Default value 1
+                });
+                
+                $("#insert-btn").click(function() {
+                    testEditor.config({
+                        tocContainer : "#custom-toc-container",
+                        tocDropdown   : false
+                    });
+                });
+                
+                $("#menu-btn").click(function(){
+                    testEditor.config({
+                        tocContainer  : "",
+                        tocDropdown   : true,
+                        tocTitle      : "目录 Table of Contents dsfsadfsfdsdf",
+                    });
+                });
+                
+                $("#menu2-btn").click(function(){
+                    testEditor.config({
+                        tocContainer  : "#custom-toc-container",
+                        tocDropdown   : true,
+                        tocTitle      : "目录 Table of Contents dsfsadfsfdsdf",
+                    });
+                });
+                
+                $("#default-btn").click(function() {
+                    $("#custom-toc-container").html("#custom-toc-container");
+                    testEditor.config({
+                        tocContainer : "",
+                        tocm : false,
+                        tocDropdown  : false
+                    });
+                });
+                
+                $("#tocm-btn").click(function() {
+                    $("#custom-toc-container").html("#custom-toc-container");
+                    testEditor.config({
+                        tocm : true,
+                        tocContainer : "",
+                        tocDropdown   : false
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
